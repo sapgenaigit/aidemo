@@ -21,6 +21,7 @@
         <button type="submit">Calculate</button>
     </form>
     <p id="result"></p>
+    <p id="notification" style="color: green;"></p>
     <script>
         document.getElementById('arithmeticForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -38,6 +39,7 @@
                 default: result = 'Invalid operator';
             }
             document.getElementById('result').textContent = 'Result: ' + result;
+            document.getElementById('notification').textContent = 'Calculation completed successfully!';
         });
     </script>
 </body>
