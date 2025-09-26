@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+<body>
+    <h1>Hello, world!</h1>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World with Calendar</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .calendar {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin-top: 24px;
+        }
+        .calendar table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .calendar th, .calendar td {
+            border: 1px solid #ccc;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+        }
+        .calendar th {
+            background: #f0f0f0;
+        }
+        .calendar .today {
+            background: #b3e5fc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello, world!</h1>
+    <div class="calendar" id="calendar"></div>
+    <script>
+        function renderCalendar(year, month) {
+            const calendar = document.getElementById('calendar');
+            const now = new Date();
+            const today = (now.getFullYear() === year && now.getMonth() === month) ? now.getDate() : null;
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            let html = `<h2>${monthNames[month]} ${year}</h2>`;
+            html += '<table><tr>';
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            for (let d of days) html += `<th>${d}</th>`;
+            html += '</tr><tr>';
+            for (let i = 0; i < firstDay; i++) html += '<td></td>';
+            for (let day = 1; day <= daysInMonth; day++) {
+                if ((firstDay + day - 1) % 7 === 0 && day !== 1) html += '</tr><tr>';
+                let cls = (day === today) ? ' class="today"' : '';
+                html += `<td${cls}>${day}</td>`;
+            }
+            let remaining = (firstDay + daysInMonth) % 7;
+            if (remaining !== 0) {
+                for (let i = remaining; i < 7; i++) html += '<td></td>';
+            }
+            html += '</tr></table>';
+            calendar.innerHTML = html;
+        }
+        const now = new Date();
+        renderCalendar(now.getFullYear(), now.getMonth());
+    </script>
+</body>
+</html>
